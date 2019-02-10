@@ -1,14 +1,38 @@
-s = 'azcbobobegghakl'
+def isIn(char, aStr):
+    '''
+    char: a single character
+    aStr: an alphabetized string
 
-needle = "bob"
-pointer = 0
-count = 0
+    returns: True if char is in aStr; False otherwise
+    '''
+    # Your code here
 
-for c in s:
-    target = s[pointer: pointer + 3]
-    print(target)
-    if target == needle:
-        count += 1
-    pointer += 1
+    if len(aStr) == 0:
+        return False
 
-print("Number of times bob occurs is: " + str(count))
+    if len(aStr) == 1:
+        if char == aStr[0]:
+            return True
+        else:
+            return False
+
+    mid = int(len(aStr)/2)
+
+    if char == aStr[mid]:
+        return True
+    elif char > aStr[mid]:
+        aStr = aStr[mid:]
+        return isIn(char, aStr)
+    else:
+        aStr = aStr[:mid]
+        return isIn(char, aStr)
+
+
+
+# y = isIn("a", "abcdef")
+# print(y)
+
+y = isIn('c', 'ccehprruvy')
+print(y)
+
+
