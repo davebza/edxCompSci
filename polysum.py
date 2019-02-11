@@ -15,6 +15,6 @@ def polysum(n, s):
     pi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286
 
     area = (.25 * n * s**2) / (math.tan(pi/n))
-    perimeter = ((n * s)**2)
+    perimeterSquared = ((n * s)**2)
 
-    return round((area+perimeter), 4)
+    return round((area+perimeterSquared), 4)
