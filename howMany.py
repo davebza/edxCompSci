@@ -22,10 +22,17 @@ def biggest(aDict):
     '''
     # Your Code Here
 
+    currentBiggest = 0
+    count = 0
+    currentKey = ""
 
-animals = { 'a': ['aardvark'], 'b': ['baboon'], 'c': ['coati']}
+    for key in aDict:
+        current = aDict.get(key)
+        count = len(current)
+        if count > currentBiggest:
+            currentBiggest = count
+            currentKey = key
 
-animals['d'] = ['donkey']
-animals['d'].append('dog')
-animals['d'].append('dingo')
+    return currentKey
+
 
