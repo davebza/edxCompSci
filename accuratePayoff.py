@@ -1,44 +1,28 @@
-def newBalance(balance, monthlyInterest, minimumPayment):
-
-    workingBalance = balance - minimumPayment
-    workingBalance = workingBalance + (workingBalance * monthlyInterest)
-
-    return workingBalance
-
-def testMini(balance):
-
-    count = 0
-    while count < 12:
-        count += 1
-        balance = newBalance(balance, monthlyInterest, minimumPayment)
-
-    return balance
-
-# Values:
-
-balance = 320000
-annualInterestRate = 0.2
-expectedAnswer = 29157.09
-monthlyInterest = annualInterestRate /12
-
+monthlyInterestRate = annualInterestRate / 12
 lowerBound = balance / 12
-upperBound = (balance * (1+monthlyInterest)**12)/12
+upperBound = (balance * (1 + annualInterestRate / 12) ** 12) / 12
+originalBalance = balance
+epsilon = 0.01
 
+# Keep testing new payment values until the balance is +/- lowestBalance
+while abs(balance) > epsilon:
+    # Reset balance:
+    balance = originalBalance
+    # Calculate a new monthly payment:
+    payment = (upperBound - lowerBound) / 2 + lowerBound
 
-print(f"Lower: {lowerBound}")
-print(f"Upper: {upperBound}")
+    # Test this guess:
+    for month in range(12):
+        balance -= payment
+        balance *= 1 + monthlyInterestRate
 
-minimumPayment = upperBound/2
-testedBalance = balance
-count = 0
+    # Reset bounds in light of this:
+    if balance > 0:
+        # If the balance is too big, need higher payment so we increase the lower bound
+        lowerBound = payment
+    else:
+        # If the balance is too small, we need a lower payment, so we decrease the upper bound
+        upperBound = payment
 
-print(f"Minimum: {minimumPayment}")
-testedBalance = testMini(balance)
-print(f"New balance: {testedBalance}")
-
-if expectedAnswer == minimumPayment:
-    print("Hey")
-else:
-    print("No!")
-
-print(count)
+# When the while loop terminates, we know we have our answer!
+print("Lowest Payment:", round(payment, 2))

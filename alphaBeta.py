@@ -1,21 +1,32 @@
-x = 276566
-epsilon = 0.01
-numberOfGuesses = 0
+def oddTuples(aTup):
+    '''
+    aTup: a tuple
 
-low = 1.0
-high = x
+    returns: tuple, every other element of aTup. 
+    '''
+    # Your Code Here
 
-answer = (high + low)/2.0
 
-while abs(answer ** 3 - x) >= epsilon:
 
-    print('low = ' + str(low) + ' high = '+ str(high) + ' answer = ' + str(answer))
-    numberOfGuesses += 1
+    oddList = []
 
-    if answer ** 3 < x:
-        low = answer
-    else:
-        high = answer
-    answer = (high + low)/2.0
+    if len(aTup) == 0:
+        return tuple(oddList)
 
-print(f'The number of guesses was {numberOfGuesses} and the square root of {x} is close to {answer}')
+    oddList.append(aTup[0])
+
+
+    count = 1
+
+    while count < len(aTup):
+
+        if count % 2 == 0:
+            oddList.append(aTup[count])
+
+        count += 1
+
+    return tuple(oddList)
+
+
+myOddTUp = oddTuples((15, 8, 19, 16, 2, 2))
+print(myOddTUp)
