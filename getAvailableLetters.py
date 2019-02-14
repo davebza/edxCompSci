@@ -18,6 +18,6 @@ def getAvailableLetters(lettersGuessed):
         if letter in listOfAllLetters:
             listOfAllLetters.remove(letter)
 
-    return listOfAllLetters
+    return "".join(listOfAllLetters)
 
 
