@@ -8,6 +8,7 @@
 # (so be sure to read the docstrings!)
 
 import random
+import string
 
 WORDLIST_FILENAME = "words.txt"
 
@@ -25,7 +26,8 @@ def loadWords():
     line = inFile.readline()
     # wordlist: list of strings
     wordlist = line.split()
-    print("  ", len(wordlist), "words loaded.")
+    #print("  ", len(wordlist), "words loaded.")
+    print(len(wordlist), "words loaded.")
     return wordlist
 
 def chooseWord(wordlist):
@@ -51,6 +53,17 @@ def isWordGuessed(secretWord, lettersGuessed):
       False otherwise
     '''
     # FILL IN YOUR CODE HERE...
+    listOfSecretLetters = list(set(secretWord))
+
+    for letter in lettersGuessed:
+        if letter in listOfSecretLetters:
+            index = listOfSecretLetters.index(letter)
+            listOfSecretLetters.pop(index)
+
+    if len(listOfSecretLetters) == 0:
+        return True
+    elif len(listOfSecretLetters) > 0:
+        return False
 
 
 
@@ -63,7 +76,17 @@ def getGuessedWord(secretWord, lettersGuessed):
     '''
     # FILL IN YOUR CODE HERE...
 
+    listOfSecretLetters = list(secretWord)
+    outputList = []
 
+    for letter in listOfSecretLetters:
+        if letter in lettersGuessed:
+            outputList.append(letter)
+        else:
+            outputList.append("_")
+
+    outputString = " ".join(outputList)
+    return outputString
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -72,7 +95,24 @@ def getAvailableLetters(lettersGuessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE...
-    
+
+    #Get a list of all possible letters:
+    allLetters = string.ascii_lowercase
+    listOfAllLetters = list(allLetters)
+
+    #compare letters in lettersGuessed, and if the letter has been guessed, remove it from all letters:
+
+    for letter in lettersGuessed:
+        if letter in listOfAllLetters:
+            listOfAllLetters.remove(letter)
+
+    return "".join(listOfAllLetters)
+
+def welcomeMessage(secretWord):
+
+    secretLength = str(len(secretWord))
+    welcomeMessage = "Welcome to the game, Hangman!\nI am thinking of a word that is "+ secretLength+" letters long."
+    return welcomeMessage
 
 def hangman(secretWord):
     '''
@@ -80,30 +120,33 @@ def hangman(secretWord):
 
     Starts up an interactive game of Hangman.
 
-    * At the start of the game, let the user know how many 
+    * At the start of the game, let the user know how many
       letters the secretWord contains.
 
     * Ask the user to supply one guess (i.e. letter) per round.
 
-    * The user should receive feedback immediately after each guess 
+    * The user should receive feedback immediately after each guess
       about whether their guess appears in the computers word.
 
-    * After each round, you should also display to the user the 
-      partially guessed word so far, as well as letters that the 
+    * After each round, you should also display to the user the
+      partially guessed word so far, as well as letters that the
       user has not yet guessed.
 
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE...
 
+    #print the welcome message:
 
-
-
+    printOut = print(welcomeMessage(secretWord))
 
 
 # When you've completed your hangman function, uncomment these two lines
 # and run this file to test! (hint: you might want to pick your own
 # secretWord while you're testing)
 
-# secretWord = chooseWord(wordlist).lower()
-# hangman(secretWord)
+secretWord = chooseWord(wordlist).lower()
+lettersGuessed = []
+mistakesMade = 0
+availableLetters = []
+hangman(secretWord)
