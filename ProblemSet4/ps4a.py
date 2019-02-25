@@ -151,9 +151,6 @@ def updateHand(hand, word):
 
     return newHand
 
-
-
-#
 # Problem #3: Test word validity
 #
 def isValidWord(word, hand, wordList):
@@ -167,7 +164,16 @@ def isValidWord(word, hand, wordList):
     hand: dictionary (string -> int)
     wordList: list of lowercase strings
     """
-    # TO DO ... <-- Remove this comment when you code this function
+    checkHand = hand.copy()
+    for letter in word:
+        try:
+            checkHand[letter] -= 1
+            if checkHand[letter] == 0:
+                del checkHand[letter]
+        except KeyError:
+            return False
+
+    return True
 
 # Problem #4: Playing a hand
 #
@@ -265,4 +271,4 @@ if __name__ == '__main__':
     # hand = {'a':1, 'q':1, 'l':2, 'm':1, 'u':1, 'i':1}
     # displayHand(hand)
     # word = "quail"
-    # updateHand(hand, word)
+    # print(isValidWord(word, hand, wordList))
