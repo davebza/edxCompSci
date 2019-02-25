@@ -77,12 +77,8 @@ def getWordScore(word, n):
     if len(word) == n:
         sum += 50
 
-
     return (sum)
 
-
-
-#
 # Problem #2: Make sure you understand how this function works and what it does!
 #
 def displayHand(hand):
@@ -147,6 +143,14 @@ def updateHand(hand, word):
     """
     # TO DO ... <-- Remove this comment when you code this function
 
+    newHand = hand.copy()
+    for letter in word:
+        newHand[letter] -= 1
+        if newHand[letter] == 0:
+            del newHand[letter]
+
+    return newHand
+
 
 
 #
@@ -165,8 +169,6 @@ def isValidWord(word, hand, wordList):
     """
     # TO DO ... <-- Remove this comment when you code this function
 
-
-#
 # Problem #4: Playing a hand
 #
 
@@ -178,8 +180,6 @@ def calculateHandlen(hand):
     returns: integer
     """
     # TO DO... <-- Remove this comment when you code this function
-
-
 
 def playHand(hand, wordList, n):
     """
@@ -261,3 +261,8 @@ def playGame(wordList):
 if __name__ == '__main__':
     wordList = loadWords()
     playGame(wordList)
+    #Testign my own work here:
+    # hand = {'a':1, 'q':1, 'l':2, 'm':1, 'u':1, 'i':1}
+    # displayHand(hand)
+    # word = "quail"
+    # updateHand(hand, word)
