@@ -268,7 +268,16 @@ def playGame(wordList):
     2) When done playing the hand, repeat from step 1    
     """
     # TO DO ... <-- Remove this comment when you code this function
-    print("playGame not yet implemented.") # <-- Remove this line when you code the function
+
+    userResponse = input("Enter n to deal a new hand, r to replay the last hand, or e to end game: ").lower()
+
+    # use assertion for responses:
+    if userResponse == 'n' or userResponse == 'r' or userResponse == 'e':
+        print("Invalid command.")
+        playGame(wordList)
+
+
+
 
 #
 # Build data structures used for entire session and play game
@@ -276,5 +285,4 @@ def playGame(wordList):
 if __name__ == '__main__':
     wordList = loadWords()
     playGame(wordList)
-    playHand({'a': 1, 'z': 1}, wordList, 2)
 
